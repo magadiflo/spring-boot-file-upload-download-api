@@ -1,0 +1,30 @@
+package com.magadiflo.app.api.download;
+
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
+public class FileDownloadUtil {
+
+    private Path foundFile = null;
+
+    public Resource getFileAsResource(String fileCode) throws IOException {
+        Path uploadDirectory = Paths.get("files-upload");
+        Files.list(uploadDirectory).forEach(file -> {
+            if(file.getFileName().toString().startsWith(fileCode)){
+                this.foundFile = file;
+               return;
+            }
+        });
+        if(foundFile != null) {
+            return new UrlResource(foundFile.toUri());
+        }
+
+        return null;
+    }
+
+}
