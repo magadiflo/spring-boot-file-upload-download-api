@@ -19,9 +19,10 @@ public class FileUploadController {
     public ResponseEntity<FileUploadResponse> uploadFile(@RequestParam("file") MultipartFile multipartFile) throws IOException {
         String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
         long size = multipartFile.getSize();
-        FileUploadUtil.saveFile(fileName, multipartFile);
+        String fileCode = FileUploadUtil.saveFile(fileName, multipartFile);
 
-        FileUploadResponse response = new FileUploadResponse(fileName, "/download", size);
+
+        FileUploadResponse response = new FileUploadResponse(fileName, "/download/" + fileCode, size);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
