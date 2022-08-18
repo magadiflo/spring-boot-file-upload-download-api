@@ -22,7 +22,7 @@ public class FileUploadController {
         String fileCode = FileUploadUtil.saveFile(fileName, multipartFile);
 
 
-        FileUploadResponse response = new FileUploadResponse(fileName, "/download/" + fileCode, size);
+        FileUploadResponse response = new FileUploadResponse(fileName, "/file/download/" + fileCode, size);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
